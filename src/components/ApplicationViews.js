@@ -4,6 +4,7 @@ import AnimalList from './animal/AnimalList'
 import LocationList from './location/LocationList'
 import EmployeeList from './employee/EmployeeList'
 import OwnerList from './owner/OwnerList'
+import NavBar from "./nav/NavBar"
 
 class ApplicationViews extends Component {
 
@@ -58,6 +59,7 @@ class ApplicationViews extends Component {
         <Route path="/owners" render={(props) => {
           return <OwnerList owners={this.state.owners} />
         }} />
+        <Route path="/search"></Route>
       </React.Fragment>
     )
   }
