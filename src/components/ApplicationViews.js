@@ -4,7 +4,7 @@ import AnimalList from './animal/AnimalList'
 import LocationList from './location/LocationList'
 import EmployeeList from './employee/EmployeeList'
 import OwnerList from './owner/OwnerList'
-import NavBar from "./nav/NavBar"
+// import NavBar from "./nav/NavBar"
 
 class ApplicationViews extends Component {
 
@@ -24,6 +24,45 @@ class ApplicationViews extends Component {
         .then(r => r.json()))
       .then(owners => newState.owners = owners)
       .then(() => this.setState(newState))
+  }
+
+  deleteAnimal = id => {
+    return fetch(`http://localhost:5002/animals/${id}`, {
+      method: "DELETE"
+    })
+      .then(e => e.json())
+      .then(() => fetch(`http://localhost:5002/animals`))
+      .then(e => e.json())
+      .then(animals => this.setState({
+        animals: animals
+      })
+      )
+  }
+
+  fireEmployee = id => {
+    return fetch(`http://localhost:5002/employees/${id}`, {
+      method: "DELETE"
+    })
+      .then(e => e.json())
+      .then(() => fetch(`http://localhost:5002/employees`))
+      .then(e => e.json())
+      .then(employees => this.setState({
+        employees: employees
+      })
+      )
+  }
+
+  removeOwner = id => {
+    return fetch(`http://localhost:5002/owners/${id}`, {
+      method: "DELETE"
+    })
+      .then(e => e.json())
+      .then(() => fetch(`http://localhost:5002/owners`))
+      .then(e => e.json())
+      .then(owners => this.setState({
+        owners: owners
+      })
+      )
   }
 
   //join table
@@ -51,13 +90,13 @@ class ApplicationViews extends Component {
           return <LocationList locations={this.state.locations} />
         }} />
         <Route path="/animals" render={(props) => {
-          return <AnimalList animals={this.state.animals} owners={this.state.owners} animalsOwned={this.animalsOwned} />
+          return <AnimalList animals={this.state.animals} owners={this.state.owners} animalsOwned={this.animalsOwned} deleteAnimal={this.deleteAnimal}/>
         }} />
         <Route path="/employees" render={(props) => {
-          return <EmployeeList employees={this.state.employees} />
+          return <EmployeeList employees={this.state.employees} fireEmployee={this.fireEmployee}/>
         }} />
         <Route path="/owners" render={(props) => {
-          return <OwnerList owners={this.state.owners} />
+          return <OwnerList owners={this.state.owners} removeOwner={this.removeOwner}/>
         }} />
         <Route path="/search"></Route>
       </React.Fragment>

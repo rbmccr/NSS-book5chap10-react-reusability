@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './animal.css'
 
 class AnimalList extends Component {
 
@@ -35,9 +36,17 @@ class AnimalList extends Component {
       <section className="animals list">
         {
           aml.map(animal =>
-            <div key={animal.id}>
-              {animal.name}
-              {this.animalOwners(animal)}
+            <div key={animal.id} className="card">
+              <div className="card-body">
+                <h5 className="card-title">
+                  <img src="https://avatars1.githubusercontent.com/u/43763999?s=460&v=4" alt="pic" className="icon--dog" />
+                  {animal.name}
+                  <a href="#"
+                    onClick={() => this.props.deleteAnimal(animal.id)}
+                    className="card-link">Delete</a>
+                </h5>
+                <p>{this.animalOwners(animal)}</p>
+              </div>
             </div>
           )
         }
