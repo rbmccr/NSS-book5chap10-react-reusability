@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class LocationList extends Component {
   render() {
     return (
-      <section className="locations">
+      <section className="locations list">
         {
           this.props.locations.map(location =>
             <div key={location.id}>
