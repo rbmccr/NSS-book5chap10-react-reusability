@@ -31,6 +31,7 @@ class AnimalList extends Component {
 
   render() {
     const aml = this.props.animals
+    console.log(aml)
 
     return (
       <section className="animals list">
