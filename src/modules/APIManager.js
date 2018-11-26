@@ -14,6 +14,17 @@ class APIManager {
     return fetch(`${remoteURL}/${this.resource}`).then(data => data.json())
   }
 
+  post(item) {
+    return fetch(`${remoteURL}/${this.resource}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify(item)
+    })
+      .then(e => e.json())
+  }
+
   delete(id) {
     return fetch(`${remoteURL}/${this.resource}/${id}`, {
       method: "DELETE"

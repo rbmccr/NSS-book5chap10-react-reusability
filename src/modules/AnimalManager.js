@@ -1,11 +1,13 @@
 import APIManager from "./APIManager"
 
-const remoteURL = "http://localhost:5002"
-
 class AnimalManager extends APIManager {
 
   getAll() {
     return this.all()
+  }
+
+  postAnimal(animal) {
+    return this.post(animal)
   }
 
   getAnimal(id) {

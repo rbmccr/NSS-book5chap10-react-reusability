@@ -1,10 +1,22 @@
-const remoteURL = "http://localhost:5002"
+import APIManager from "./APIManager"
 
-export default {
-  get(id) {
-    return fetch(`${remoteURL}/employees/${id}`).then(e => e.json())
-  },
+class EmployeeManager extends APIManager {
+
   getAll() {
-    return fetch(`${remoteURL}/employees`).then(e => e.json())
+    return this.all()
+  }
+
+  postEmployee(employee) {
+    return this.post(employee)
+  }
+
+  get(id) {
+    return this.get(id)
+  }
+
+  removeemployee(id) {
+    return this.delete(id)
   }
 }
+
+export default new EmployeeManager("employees")

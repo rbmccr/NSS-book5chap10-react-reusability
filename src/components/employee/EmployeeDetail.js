@@ -15,7 +15,7 @@ export default class EmployeeDetail extends Component {
             </h4>
             <h6 className="card-title">{employee.breed}</h6>
             <a href="#"
-              onClick={() => this.props.removeemployee(employee.id)
+              onClick={() => this.props.fireEmployee(employee.id)
                 .then(() => this.props.history.push("/animals"))}
               className="card-link">Delete</a>
           </div>
