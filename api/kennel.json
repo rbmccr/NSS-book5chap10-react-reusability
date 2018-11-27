@@ -2,15 +2,18 @@
   "employees": [
     {
       "id": 1,
-      "name": "Jessica Younker"
+      "name": "Jessica Younker",
+      "locationId": 2
     },
     {
       "id": 2,
-      "name": "Jordan Nelson"
+      "name": "Jordan Nelson",
+      "locationId": 2
     },
     {
       "id": 3,
-      "name": "Zoe LeBlanc"
+      "name": "Zoe LeBlanc",
+      "locationId": 1
     }
   ],
   "locations": [
@@ -39,22 +42,16 @@
       "name": "Angus"
     },
     {
-      "id": 4,
-      "name": "Henley"
-    },
-    {
-      "id": 5,
-      "name": "Derkins"
-    },
-    {
-      "id": 6,
-      "name": "Checkers"
-    },
-    {
       "name": "doge",
       "breed": "shibe",
       "employeeId": 1,
       "id": 7
+    },
+    {
+      "name": "Goodboy",
+      "breed": "any dog ever",
+      "employeeId": 3,
+      "id": 8
     }
   ],
   "owners": [

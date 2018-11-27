@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './animal.css'
 import { Link } from "react-router-dom";
+import AnimalCard from "./AnimalCard"
 
 class AnimalList extends Component {
 
@@ -47,19 +48,7 @@ class AnimalList extends Component {
           <section className="animals list">
             {
               aml.map(animal =>
-                <div key={animal.id} className="card">
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      <img src="https://www.akc.org/wp-content/themes/akc/component-library/assets//img/welcome.jpg" alt="pic" className="icon--dog" />
-                      {animal.name}
-                      <Link className="nav-link" to={`/animals/${animal.id}`}>Details</Link>
-                      <a href="#"
-                        onClick={() => this.props.deleteAnimal(animal.id)}
-                        className="card-link">Delete</a>
-                    </h5>
-                    <p>{this.animalOwners(animal)}</p>
-                  </div>
-                </div>
+                <AnimalCard key={animal.id} animal={animal} {...this.props} />
               )
             }
           </section>
