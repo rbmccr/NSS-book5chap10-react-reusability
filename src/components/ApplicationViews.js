@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from "react-router-dom"
 import React, { Component } from "react"
 import AnimalList from './animal/AnimalList'
 import LocationList from './location/LocationList'
@@ -14,6 +14,7 @@ import EmployeeDetail from './employee/EmployeeDetail'
 // import LocationDetail from './location/LocationDetail'
 import AnimalForm from './animal/AnimalForm'
 import EmployeeForm from './employee/EmployeeForm'
+import Login from './login/Login'
 
 
 class ApplicationViews extends Component {
@@ -42,6 +43,9 @@ class ApplicationViews extends Component {
     })
 
   }
+
+  // Check if credentials are in local storage
+  isAuthenticated = () => sessionStorage.getItem("credentials") !== null
 
   deleteAnimal = (id) => {
     return AnimalManager.delete(id)
@@ -111,24 +115,38 @@ class ApplicationViews extends Component {
   render() {
     return (
       <React.Fragment>
+        <Route path="/login" component={Login} />
         <Route exact path="/" render={(props) => {
-          return <LocationList locations={this.state.locations} />
+          if (this.isAuthenticated()) {
+            return <LocationList locations={this.state.locations} />
+          } else {
+            return <Redirect to="/login" />
+          }
         }} />
         <Route exact path="/animals" render={(props) => {
-          return <AnimalList {...props}
-            animals={this.state.animals} owners={this.state.owners} animalsOwned={this.animalsOwned} deleteAnimal={this.deleteAnimal} />
+          if (this.isAuthenticated()) {
+            return <AnimalList {...props}
+              animals={this.state.animals} owners={this.state.owners} animalsOwned={this.animalsOwned} deleteAnimal={this.deleteAnimal} />
+          } else {
+            return <Redirect to="/login" />
+          }
         }} />
         {/* We pass employees to the AnimalForm so a dropdown can be populated */}
         <Route path="/animals/new" render={(props) => {
           return <AnimalForm {...props}
             addAnimal={this.addAnimal}
             employees={this.state.employees} />
+
         }} />
         <Route path="/animals/:animalId(\d+)" render={(props) => {
           return <AnimalDetail {...props} deleteAnimal={this.deleteAnimal} animals={this.state.animals} />
         }} />
         <Route exact path="/employees" render={(props) => {
-          return <EmployeeList {...props} employees={this.state.employees} fireEmployee={this.fireEmployee} />
+          if (this.isAuthenticated()) {
+            return <EmployeeList {...props} employees={this.state.employees} fireEmployee={this.fireEmployee} />
+          } else {
+            return <Redirect to="/login" />
+          }
         }} />
         <Route path="/employees/:employeeId(\d+)" render={(props) => {
           return <EmployeeDetail {...props} employees={this.state.employees} fireEmployee={this.fireEmployee} />
@@ -138,7 +156,11 @@ class ApplicationViews extends Component {
             addEmployee={this.addEmployee} />
         }} />
         <Route exact path="/owners" render={(props) => {
-          return <OwnerList owners={this.state.owners} removeOwner={this.removeOwner} />
+          if (this.isAuthenticated()) {
+            return <OwnerList owners={this.state.owners} removeOwner={this.removeOwner} />
+          } else {
+            return <Redirect to="/login" />
+          }
         }} />
         <Route path="/owners/:ownerId(\d+)" render={(props) => {
           return <OwnerDetail {...props} owners={this.state.owners} removeOwner={this.removeOwner} />
